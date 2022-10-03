@@ -1,10 +1,17 @@
-import React, {useState} from 'react';
 import React, {useState, useEffect} from 'react';
 import Table from './Table';
 import Form from './Form';
 import axios from 'axios';
 
 function MyApp() {
+
+  useEffect(() => {
+    fetchAll().then( result => {
+       if (result)
+          setCharacters(result);
+     });
+  }, [] );
+  
     const [characters, setCharacters] = useState([]); 
 
 function removeOneCharacter (index) {
@@ -36,13 +43,6 @@ function removeOneCharacter (index) {
        return false;         
     }
  }
-
- useEffect(() => {
-  fetchAll().then( result => {
-     if (result)
-        setCharacters(result);
-   });
-}, [] );
 
 }
 
