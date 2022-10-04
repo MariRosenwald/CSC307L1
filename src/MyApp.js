@@ -18,12 +18,28 @@ function removeOneCharacter (index) {
   const updated = characters.filter((character, i) => {
       return i !== index
     });
+    const del = characters.filter((character, i) => {
+      return i === index
+    });
+    console.log(del[0]);
+    makeDeleteCall(del[0]); 
     setCharacters(updated);
+  }
+
+  async function makeDeleteCall(person){
+    try {
+       const response = await axios.delete('http://localhost:5000/users/' + person.id, person);
+       return response;
+    }
+    catch (error) {
+       console.log(error);
+       return false;
+    }
   }
 
   function updateList(person) { 
     makePostCall(person).then( result => {
-    if (result && result.status === 200)
+    if (result && result.status === 201)
        setCharacters([...characters, person] );
     });
  }
