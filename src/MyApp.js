@@ -22,8 +22,11 @@ function removeOneCharacter (index) {
       return i === index
     });
     console.log(del[0]);
-    makeDeleteCall(del[0]); 
-    setCharacters(updated);
+    makeDeleteCall(del[0]).then( result => {
+      if (result && result.status === 204)
+        setCharacters(updated);
+    });
+    
   }
 
   async function makeDeleteCall(person){
